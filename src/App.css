@@ -245,3 +245,13 @@ footer {
     transform: scale(1);
   }
 }
+
+@media (max-width: 768px) {
+  .basket-container {
+    grid-template-columns: 1fr;
+  }
+
+  .App-header h1 {
+    font-size: 2em;
+  }
+}

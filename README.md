@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# Acme Widget Co Sales System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A proof of concept sales system for Acme Widget Co, built with TypeScript and React.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Product Catalog**: Three widgets with different prices
+- **Smart Delivery Pricing**: Automatic delivery cost calculation based on order value
+  - Under $50: $4.95 delivery
+  - Under $90: $2.95 delivery
+  - $90 or more: FREE delivery
+- **Special Offers**: "Buy one Red Widget, get the second half price"
+- **Real-time Basket Updates**: Instant feedback when adding/removing items
+- **Clean, Modern UI**: Responsive design with smooth animations
 
-## React Compiler
+## How It Works
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Core Logic (`/src/logic`)
 
-## Expanding the ESLint configuration
+The business logic is completely separated from the UI:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **`basket.ts`**: Main Basket class handling all calculations
+  - `addItem()`: Adds products to basket
+  - `getTotal()`: Calculates final price including offers and delivery
+  - `applyOffers()`: Applies special offer rules
+  - `calculateDelivery()`: Determines delivery cost based on subtotal
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **`types.ts`**: TypeScript interfaces for type safety
+- **`baseData.ts`**: all data configuration
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### UI Components (`/src/components`)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **`ProductList.tsx`**: Displays available products with add buttons
+- **`BasketSummary.tsx`**: Shows basket contents and cost breakdown
+- **`BasketBoard.tsx`**: Main container managing state and logic
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Key Design Decisions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Separation of Concerns**: Business logic isolated from UI for easy testing and updates
+2. **Type Safety**: Full TypeScript implementation catching errors at compile time
+3. **Configurable Rules**: Delivery and offer rules are passed as parameters, making them easy to modify
+4. **Immutability**: Basket state updates are predictable and trackable
+5. **Responsive Design**: Works on desktop and mobile devices
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Testing the Examples
+
+The system matches all provided examples:
+
+| Products | Expected Total | Actual |
+|----------|---------------|--------|
+| B01, G01 | $37.85 | $37.85 |
+| R01, R01 | $54.37 | $54.37 |
+| R01, G01 | $60.85 | $60.85 |
+| B01, B01, R01, R01, R01 | $98.27 | $98.27 |
+
+## Assumptions Made
+
+1. **Offer Application**: The "buy one red widget, get the second half price" offer applies to pairs, not all red widgets (i.e., 3 red widgets = 1 full price + 1 half price + 1 full price)
+2. **Delivery Calculation**: Delivery is calculated AFTER offers are applied (as implied by the examples)
+3. **Currency**: All prices are in USD with 2 decimal places
+4. **Rounding**: All calculations are rounded to 2 decimal places at the final stage
+
+## Running the Project
+
+```bash
+# Install dependencies
+yarn install
+
+# Start development server
+yarn dev
+
+# Build for production
+yarn build
