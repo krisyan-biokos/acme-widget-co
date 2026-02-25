@@ -1,30 +1,33 @@
 import React from "react";
-import type { BasketItem, DeliveryRule } from "../data/types";
+import type { BasketItem } from "../data/types";
 
-interface BacketSummaryProps {
+interface BasketSummaryProps {
   items: BasketItem[];
   subtotal: number;
+  rawSubtotal: number;
   deliveryCost: number;
   total: number;
-  deliveryRules: DeliveryRule[];
 }
 
-export const BasketSummary: React.FC<BacketSummaryProps> = ({
+export const BasketSummary: React.FC<BasketSummaryProps> = ({
   items,
   subtotal,
+  rawSubtotal,
   deliveryCost,
   total,
 }) => {
   const getDeliveryThresholdMessage = (subtotal: number) => {
-    if (subtotal >= 90) return "You've qualified for FREE delivery!";
+    if (subtotal >= 90) return "🎉 You've qualified for FREE delivery!";
     if (subtotal >= 50)
-      return `Add $${(90 - subtotal).toFixed(2)} more for free delivery`;
-    return `Add $${(50 - subtotal).toFixed(2)} more for reduced delivery`;
+      return `🚚 Add $${(90 - subtotal).toFixed(2)} more for free delivery`;
+    return `🚚 Add $${(50 - subtotal).toFixed(2)} more for reduced delivery`;
   };
+
+  const savings = rawSubtotal - subtotal;
 
   return (
     <div className="basket-summary">
-      <h2>Basket Dashboard</h2>
+      <h2>Your Basket</h2>
 
       {items.length === 0 ? (
         <p className="empty-basket">Your basket is empty</p>
@@ -43,6 +46,13 @@ export const BasketSummary: React.FC<BacketSummaryProps> = ({
           </div>
 
           <div className="basket-totals">
+            {savings > 0 && (
+              <div className="savings">
+                <span>You save:</span>
+                <span className="savings-amount">-${savings.toFixed(2)}</span>
+              </div>
+            )}
+
             <div className="subtotal">
               <span>Subtotal:</span>
               <span>${subtotal.toFixed(2)}</span>
@@ -50,7 +60,7 @@ export const BasketSummary: React.FC<BacketSummaryProps> = ({
 
             <div className="delivery">
               <span>Delivery:</span>
-              <span>
+              <span className={deliveryCost === 0 ? "free-delivery" : ""}>
                 {deliveryCost === 0 ? "FREE" : `$${deliveryCost.toFixed(2)}`}
               </span>
             </div>
