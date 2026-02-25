@@ -25,8 +25,10 @@ export class Basket {
   }
 
   getTotal(): number {
-    let total = 0;
-    return total;
+    const subtotalAfterOffers = this.applyOffers();
+    const deliveryCost = this.calculateDelivery(subtotalAfterOffers);
+
+    return Math.round((subtotalAfterOffers + deliveryCost) * 100) / 100;
   }
 
   addItem(productCode: ProductCode): void {
@@ -69,7 +71,7 @@ export class Basket {
     return this.deliveryRules[0]?.cost || 4.95;
   }
 
-  private subTotal(): number {
+  private applyOffers(): number {
     let total = 0;
 
     for (const item of this.items) {
@@ -95,5 +97,4 @@ export class Basket {
 
     return Math.round(total * 100) / 100; // Round to 2 decimal places
   }
-
 }
