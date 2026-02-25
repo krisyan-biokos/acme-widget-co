@@ -6,7 +6,7 @@ export const PRODUCTS: Product[] = [
   { code: "B01", name: "Blue Widget", price: 7.95 },
 ];
 
-export const DISCOUNT_RULES: SpecialOffer[] = [
+export const SPECIAL_OFFERS: SpecialOffer[] = [
   { type: "buy_sec_half_price", productCode: "R01" },
 ];
 

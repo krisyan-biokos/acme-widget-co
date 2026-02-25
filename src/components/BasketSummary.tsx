@@ -1,7 +1,7 @@
 import React from "react";
 import type { BasketItem, DeliveryRule } from "../data/types";
 
-interface BacketBoardProps {
+interface BacketSummaryProps {
   items: BasketItem[];
   subtotal: number;
   deliveryCost: number;
@@ -9,7 +9,7 @@ interface BacketBoardProps {
   deliveryRules: DeliveryRule[];
 }
 
-export const BacketBoard: React.FC<BacketBoardProps> = ({
+export const BasketSummary: React.FC<BacketSummaryProps> = ({
   items,
   subtotal,
   deliveryCost,

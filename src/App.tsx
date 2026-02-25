@@ -1,5 +1,5 @@
-import { PRODUCTS } from "./data/baseData";
-import { ProductList } from "./components/ProductList";
+import { PRODUCTS, SPECIAL_OFFERS, DELIVERY_RULES } from "./data/baseData";
+import { BasketBoard } from "./components/BasketBoard";
 import "./App.css";
 
 function App() {
@@ -11,9 +11,10 @@ function App() {
       </header>
 
       <main>
-        <ProductList
+        <BasketBoard
           products={PRODUCTS}
-          onAddToBasket={(code) => console.log(`Add ${code} to basket`)}
+          deliveryRules={DELIVERY_RULES}
+          offers={SPECIAL_OFFERS}
         />
       </main>
 
