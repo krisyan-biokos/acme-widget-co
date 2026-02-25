@@ -15,7 +15,18 @@ export const ProductList: React.FC<ProductListProps> = ({
       <h2>Products</h2>
       <div className="products-grid">
         {products.map((product) => (
-          <div key={product.code} className="product-item">
+          <div
+            key={product.code}
+            className="product-item"
+            style={{
+              backgroundColor:
+                {
+                  R01: "#ffcccc",
+                  G01: "#ccffcc",
+                  B01: "#ccccff",
+                }[product.code] || "",
+            }}
+          >
             <h3>{product.name}</h3>
             <p className="product-code">Code: {product.code}</p>
             <p className="product-price">Price: £{product.price.toFixed(2)}</p>
