@@ -1,4 +1,4 @@
-import type { Product, DiscountRule, DeliveryRule } from "./types";
+import type { Product, SpecialOffer, DeliveryRule } from "./types";
 
 export const PRODUCTS: Product[] = [
   { code: "R01", name: "Red Widget", price: 32.95 },
@@ -6,7 +6,7 @@ export const PRODUCTS: Product[] = [
   { code: "B01", name: "Blue Widget", price: 7.95 },
 ];
 
-export const DISCOUNT_RULES: DiscountRule[] = [
+export const DISCOUNT_RULES: SpecialOffer[] = [
   { type: "buy_sec_half_price", productCode: "R01" },
 ];
 

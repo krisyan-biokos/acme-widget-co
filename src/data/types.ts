@@ -16,7 +16,7 @@ export interface DeliveryRule {
   cost: number;
 }
 
-export interface DiscountRule {
+export interface SpecialOffer {
   type: "buy_sec_half_price" | "none";
   productCode: ProductCode;
 }
