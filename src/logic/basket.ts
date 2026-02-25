@@ -52,4 +52,20 @@ export class Basket {
   clear() {
     this.items = [];
   }
+  
+  private calculateDelivery(subtotal: number): number {
+    // Sort rules in descending order to find the first matching threshold
+    const sortedRules = [...this.deliveryRules].sort(
+      (a, b) => b.threshold - a.threshold,
+    );
+
+    for (const rule of sortedRules) {
+      if (subtotal >= rule.threshold) {
+        return rule.cost;
+      }
+    }
+
+    // Default to highest cost (lowest threshold)
+    return this.deliveryRules[0]?.cost || 4.95;
+  }
 }
