@@ -41,11 +41,30 @@
   color: #888;
 }
 
-.product-list {
+.basket-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.product-list,
+.basket-summary {
   background: #f8f9fa;
   border-radius: 15px;
   padding: 25px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.product-list h2,
+.basket-summary h2 {
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #764ba2;
+  padding-bottom: 10px;
 }
 
 .products-grid {
@@ -105,4 +124,102 @@
 .product-item button:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.basket-items {
+  margin-bottom: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.basket-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: white;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.item-name {
+  flex: 2;
+  color: #333;
+  font-weight: 500;
+}
+
+.item-quantity {
+  flex: 1;
+  text-align: center;
+  color: #666;
+}
+
+.item-price {
+  flex: 1;
+  text-align: right;
+  color: #764ba2;
+  font-weight: 600;
+}
+
+.basket-totals {
+  border-top: 2px solid #e0e0e0;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.subtotal,
+.delivery,
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.total {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #333;
+  border-top: 2px solid #e0e0e0;
+  margin-top: 10px;
+  padding-top: 20px;
+}
+
+.delivery-message {
+  margin-top: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.empty-basket {
+  text-align: center;
+  color: #999;
+  padding: 40px;
+  font-size: 1.2em;
+}
+
+.clear-basket {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.clear-basket:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
 }
