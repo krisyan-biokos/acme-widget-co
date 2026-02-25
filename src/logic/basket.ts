@@ -68,4 +68,32 @@ export class Basket {
     // Default to highest cost (lowest threshold)
     return this.deliveryRules[0]?.cost || 4.95;
   }
+
+  private subTotal(): number {
+    let total = 0;
+
+    for (const item of this.items) {
+      let itemTotal = item.product.price * item.quantity;
+
+      // Check for offers on this product
+      for (const offer of this.offers) {
+        if (
+          offer.type === "buy_sec_half_price" &&
+          offer.productCode === item.product.code
+        ) {
+          const pairs = Math.floor(item.quantity / 2);
+          const remainder = item.quantity % 2;
+          // For each pair: full price + half price
+          itemTotal =
+            pairs * (item.product.price + item.product.price / 2) +
+            remainder * item.product.price;
+        }
+      }
+
+      total += itemTotal;
+    }
+
+    return Math.round(total * 100) / 100; // Round to 2 decimal places
+  }
+
 }
